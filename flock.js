@@ -16,7 +16,7 @@ let flock;
 
 function setup() {
   createCanvas(640, 400);
-  createP("Drag the mouse to generate new boids.");
+  createP("Drag the mouse to generate new fish.");
 
   flock = new Flock();
   // Add an initial set of boids into the system
