@@ -144,7 +144,6 @@ Boid.prototype.seek = function(target) {
 Boid.prototype.render = function() {
   // Draw a fish rotated in the direction of velocity
   let theta = this.velocity.heading() + radians(90);
-
   push();
   translate(this.position.x, this.position.y);
   rotate(theta);
@@ -166,7 +165,7 @@ Boid.prototype.render = function() {
 }
 
 Boid.prototype.renderr = function() {
-  // Draw a triangle rotated in the direction of velocity
+  // Draw a pink fish rotated in the direction of velocity
   let theta = this.velocity.heading() + radians(90);
   fill(pink);
   stroke(200);
