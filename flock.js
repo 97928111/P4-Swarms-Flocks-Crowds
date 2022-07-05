@@ -1,7 +1,21 @@
+const blue = "#078FC5";
+const pinkcolor = "#FF5D8F";
+const redd = "#B20608";
+const purplee = "#7909C3";
+const black = "#0A0A0A";
+const white = "#FFFFFF";
+const brown = "#7A4100";
+const gray = "#858585";
+const darkred = "#4F0204";
+const lightred = "#F91018";
+const green = "#35D485"
+const lightgreen = "#89E6B8"
+const yellow = "#FBFF85"
+const pink = "#FFA6C1"
 let flock;
 
 function setup() {
-  createCanvas(640, 360);
+  createCanvas(640, 400);
   createP("Drag the mouse to generate new boids.");
 
   flock = new Flock();
@@ -13,7 +27,18 @@ function setup() {
 }
 
 function draw() {
-  background(51);
+  background(blue);
+  fill(green);
+
+  noStroke();
+  beginShape();
+  rect(60, 200, 20, 300 , 20);
+  rect(120, 300, 20, 300 , 20);
+  rect(220, 250, 20, 300 , 20);
+  rect(320, 100, 25, 400 , 20);
+  rect(440, 170, 20, 400 , 20);
+  rect(540, 210, 20, 400 , 20);
+  endShape();
   flock.run();
 }
 
@@ -53,18 +78,20 @@ Flock.prototype.addBoid = function(b) {
 
 function Boid(x, y) {
   this.acceleration = createVector(0, 0);
-  this.velocity = createVector(random(-1, 1), random(-1, 1));
+  this.velocity = createVector(random(-1, 2), random(-1, 2));
+  this.velocity2 = createVector(random(-1, 1), random(-1, 1));
   this.position = createVector(x, y);
   this.r = 3.0;
-  this.maxspeed = 3;    // Maximum speed
+  this.maxspeed = 4;    // Maximum speed
   this.maxforce = 0.05; // Maximum steering force
 }
 
 Boid.prototype.run = function(boids) {
   this.flock(boids);
   this.update();
-  // this.borders();
+  //this.borders();
   this.render();
+  this.renderr();
 }
 
 Boid.prototype.applyForce = function(force) {
@@ -115,18 +142,47 @@ Boid.prototype.seek = function(target) {
 }
 
 Boid.prototype.render = function() {
-  // Draw a triangle rotated in the direction of velocity
+  // Draw a fish rotated in the direction of velocity
   let theta = this.velocity.heading() + radians(90);
-  fill(127);
-  stroke(200);
+
   push();
   translate(this.position.x, this.position.y);
   rotate(theta);
+  noStroke()
   beginShape();
-  vertex(0, -this.r * 2);
-  vertex(-this.r, this.r * 2);
-  vertex(this.r, this.r * 2);
+  fill(lightgreen);
+  vertex(0, 30);
+  vertex(12, 0);
+  vertex(0, -12);
+  vertex(-12, 0);
   endShape(CLOSE);
+  fill(lightred);
+  circle(0,0,7)
+  fill(white)
+  circle(-1,0,2)
+  fill(yellow)
+  triangle(0, 25, -10, 40, 10, 40);
+  pop();
+}
+
+Boid.prototype.renderr = function() {
+  // Draw a triangle rotated in the direction of velocity
+  let theta = this.velocity.heading() + radians(90);
+  fill(pink);
+  stroke(200);
+  push();
+  translate(this.position.x+100, this.position.y+100);
+  rotate(theta);
+  beginShape();
+  vertex(0, -30);
+  vertex(-20, 0);
+  vertex(-10, 5);
+  vertex(0, 30);
+  vertex(10, 5);
+  vertex(20, 0);
+  endShape(CLOSE);
+  fill(white);
+  circle(0,-15,8)
   pop();
 }
 
